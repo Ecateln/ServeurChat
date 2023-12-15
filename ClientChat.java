@@ -25,8 +25,12 @@ public class ClientChat {
                 Thread lectureMessages = new Thread(() -> {
                     try {
                         String message;
-                        while ((message = entrée.readLine()) != null) {
-                            System.out.println(message);
+                        while (!socket.isClosed() && (message = entrée.readLine()) != null) {
+                            if (message.equals("sayonara")) {
+                                socket.close();
+                                System.out.println("Déconnexion effectuée avec succès!");
+                            } else
+                                System.out.println(message);
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -35,8 +39,8 @@ public class ClientChat {
                 lectureMessages.start();
 
                 // Étape 5: Envoi des messages au serveur
-                String message;
-                while ((message = clavier.readLine()) != null) {
+                String message = "";
+                while (!message.equals("bye") && (message = clavier.readLine()) != null) {
                     sortie.println(message);
                 }
 

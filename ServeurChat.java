@@ -47,6 +47,7 @@ public class ServeurChat {
     }
 
     public void supprimerClient(ClientThread client) {
+        client.envoyerMessage("sayonara");
         clients.remove(client);
     }
 
