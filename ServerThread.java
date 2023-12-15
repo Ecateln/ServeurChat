@@ -1,14 +1,14 @@
 import java.io.*;
 import java.net.*;
 
-public class ClientThread extends Thread {
+public class ServerThread extends Thread {
     private ServeurChat serveur;
     private Socket clientSocket;
     private PrintWriter sortie;
     private BufferedReader entrée;
     private String pseudo = null;
 
-    public ClientThread(ServeurChat serveur, Socket clientSocket) {
+    public ServerThread(ServeurChat serveur, Socket clientSocket) {
         this.serveur = serveur;
         this.clientSocket = clientSocket;
         try {
