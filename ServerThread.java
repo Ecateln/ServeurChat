@@ -35,7 +35,7 @@ public class ServerThread extends Thread {
             // Étape 2: Réception du pseudo du client
             this.setPseudo(entrée.readLine());
             System.out.println("Nouvel utilisateur: " + this.getPseudo());
-            serveur.diffuserMessage(this.getPseudo() + " a rejoint le salon.", this);
+            serveur.diffuserRejoindreSalon(this);
 
             // Étape 3: Gestion des messages du client
             String message;
@@ -43,12 +43,12 @@ public class ServerThread extends Thread {
                 if (message.equals("bye")) {
                     break; // Quitte la boucle si le message est "bye"
                 }
-                serveur.diffuserMessage(message, this);
+                serveur.diffuserMessage(this.getPseudo() + ": " + message);
             }
 
             // Étape 4: Gestion de la déconnexion du client
             serveur.supprimerClient(this);
-            serveur.diffuserMessage(pseudo + " a quitté le salon.", this);
+            serveur.diffuserMessage(pseudo + " a quitté le salon.");
             System.out.println(pseudo + " a quitté le salon.");
 
             try {

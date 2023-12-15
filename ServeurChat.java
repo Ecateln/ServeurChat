@@ -37,11 +37,16 @@ public class ServeurChat {
         }
     }
 
-    public void diffuserMessage(String message, ServerThread expéditeur) {
+    public void diffuserRejoindreSalon(ServerThread expéditeur) {
+        // for (ServerThread client : clients) {
+        diffuserMessage(expéditeur.getPseudo() + " a  rejoint le salon!");
+        // }
+    }
+
+    public void diffuserMessage(String message) {
         for (ServerThread client : clients) {
-            if (/*client != expéditeur && */client.getPseudo() != null) {
-                String ePseudo = expéditeur.getPseudo();
-                client.envoyerMessage(message.startsWith(ePseudo) ? message : ePseudo + ": " + message);
+            if (/* client != expéditeur && */client.getPseudo() != null) {
+                client.envoyerMessage(message);
             }
         }
     }
