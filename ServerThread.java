@@ -5,7 +5,7 @@ public class ServerThread extends Thread {
     private ServeurChat serveur;
     private Socket clientSocket;
     private PrintWriter sortie;
-    private BufferedReader entrée;
+    public BufferedReader entrée;
     private String pseudo = null;
 
     public ServerThread(ServeurChat serveur, Socket clientSocket) {
@@ -33,8 +33,17 @@ public class ServerThread extends Thread {
             sortie.println("Bienvenue sur le serveur de chat. Veuillez entrer votre pseudo :");
 
             // Étape 2: Réception du pseudo du client
-            this.setPseudo(entrée.readLine());
+            String enteredPseudo = entrée.readLine();
+            while (serveur.pseudoUtilisé(enteredPseudo)) {
+                sortie.println("Le pseudo est déjà utilisé. Veuillez choisir un autre pseudo :");
+                enteredPseudo = entrée.readLine();
+            }
+            sortie.println("Votre pseudo est valide !");
+            this.setPseudo(enteredPseudo);
+
+            System.out.println();
             System.out.println("Nouvel utilisateur: " + this.getPseudo());
+            System.out.println();
             serveur.diffuserRejoindreSalon(this);
 
             // Étape 3: Gestion des messages du client
