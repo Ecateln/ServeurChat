@@ -4,7 +4,7 @@ import java.net.*;
 public class ClientChat {
     public static void main(String[] args) {
         String serveurAdresse = "localhost";
-        int port = 5555;
+        int port = 7777;
 
         try {
             try (Socket socket = new Socket(serveurAdresse, port)) {
