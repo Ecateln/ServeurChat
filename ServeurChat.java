@@ -73,7 +73,7 @@ public class ServeurChat {
    
 
     public static void main(String[] args) {
-        ServeurChat serveur = new ServeurChat(5555);
+        ServeurChat serveur = new ServeurChat(7777);
         serveur.démarrerServeur();
     }
 
