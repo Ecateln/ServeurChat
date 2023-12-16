@@ -4,7 +4,7 @@ import java.net.*;
 public class ClientChat {
     public static void main(String[] args) {
         String serveurAdresse = "localhost";
-        int port = 7777;
+        int port = 5555;
 
         try {
             try (Socket socket = new Socket(serveurAdresse, port)) {
@@ -20,6 +20,20 @@ public class ClientChat {
                 // Étape 3: Envoi du pseudo au serveur
                 String pseudo = clavier.readLine();
                 sortie.println(pseudo);
+
+                while (true) {
+                    messageAccueil = entrée.readLine();
+                    System.out.println(messageAccueil);
+
+                    if (messageAccueil.equals("Le pseudo est déjà utilisé. Veuillez choisir un autre pseudo :")) {
+                        pseudo = clavier.readLine();
+                        sortie.println(pseudo);
+                    } else {
+                        break;
+                    }
+                }
+
+                
 
                 // Étape 4: Gestion des messages du client
                 Thread lectureMessages = new Thread(() -> {
