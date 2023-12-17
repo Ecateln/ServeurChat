@@ -36,12 +36,10 @@ public class ServeurChat {
             }
         }
     }
+    
 
-    public void diffuserRejoindreSalon(ServerThread expéditeur) {
-        // for (ServerThread client : clients) {
-        diffuserMessage(expéditeur.getPseudo() + " a  rejoint le salon!");
-        // }
-    }
+
+    
 
     public void diffuserMessage(String message) {
         for (ServerThread client : clients) {
@@ -56,8 +54,28 @@ public class ServeurChat {
         clients.remove(client);
     }
 
+    public void diffuserRejoindreSalon(ServerThread expéditeur) {
+        
+        diffuserMessage(expéditeur.getPseudo() + " a rejoint le salon!");
+        
+    }
+    
+    public boolean pseudoUtilisé(String pseudo) throws IOException {
+        for (ServerThread client : clients) {
+            if (client.getPseudo() != null && client.getPseudo().equals(pseudo)){
+                return true; 
+            } 
+        
+        }
+        return false; 
+    }
+
+   
+
     public static void main(String[] args) {
         ServeurChat serveur = new ServeurChat(7777);
         serveur.démarrerServeur();
     }
+
+
 }

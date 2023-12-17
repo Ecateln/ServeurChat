@@ -21,6 +21,20 @@ public class ClientChat {
                 String pseudo = clavier.readLine();
                 sortie.println(pseudo);
 
+                while (true) {
+                    messageAccueil = entrée.readLine();
+                    System.out.println(messageAccueil);
+
+                    if (messageAccueil.equals("Le pseudo est déjà utilisé. Veuillez choisir un autre pseudo :")) {
+                        pseudo = clavier.readLine();
+                        sortie.println(pseudo);
+                    } else {
+                        break;
+                    }
+                }
+
+                
+
                 // Étape 4: Gestion des messages du client
                 Thread lectureMessages = new Thread(() -> {
                     try {
