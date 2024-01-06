@@ -55,7 +55,24 @@ public class ConnexionController {
     public void login(ActionEvent event) {
         pseudo = pseudoInput.getText();
 
+
         System.out.println(pseudo);
+
+        ConnexionController connexionController = new ConnexionController();
+
+        if (pseudo.isEmpty()) {
+            messageError.setText("Veuillez entrer un pseudo");
+        } else {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("chat-view.fxml"));
+                scene = new Scene(fxmlLoader.load());
+                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
 
