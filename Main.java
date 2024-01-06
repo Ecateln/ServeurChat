@@ -50,36 +50,8 @@ public class Main extends Application {
         }
     }
 
-    public void afficherPageChat(String pseudo){
 
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("chat-view.fxml")); //charge le fichier page_connexion.fxml
-                Parent root = loader.load();
-                Scene scene = new Scene(root);
-                primaryStage.setTitle("Chat en tant que " + pseudo );
-                primaryStage.setScene(scene);
-                primaryStage.show();
-
-
-                // Controleur de cette page (ConnexionController)
-                ChatController controller = loader.getController();
-
-                client.setClientController(controller); //Passage de la référence du controleur au client
-                client.setPseudo(pseudo);
-                controller.setPseudo(pseudo);
-                controller.setClient(client);
-                controller.setStage(primaryStage);
-
-
-                client.launchThread();
-
-
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+    public ClientChat getClient() {
+        return client;
     }
-
-
-
 }
