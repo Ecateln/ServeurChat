@@ -7,6 +7,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 
@@ -17,7 +18,9 @@ public class ChatController {
     @FXML
     private Label welcomeText;
     @FXML
-    private TextField messageInput;
+    private TextArea messageArea;
+    @FXML
+    private TextArea chatArea;
     @FXML
     private Main mainApp;
     @FXML
@@ -42,18 +45,42 @@ public class ChatController {
 
         
 
-        String message = messageInput.getText();
-        if (message.equals("bye")) {
-            System.out.println("Vous avez été déconnecté");
-            System.exit(0);
+        String message = messageArea.getText();
+        if(message.equals("bye")) {
+            Alert alerte = new Alert(Alert.AlertType.CONFIRMATION);
+            alerte.setTitle("Déconnexion");
+            alerte.setHeaderText("Déconnexion");
+            alerte.setContentText("Êtes-vous sûr de vouloir vous déconnecter ?");
+
+            if(alerte.showAndWait().get() == ButtonType.OK) {
+                Stage stage = (Stage) logOutButton.getScene().getWindow();
+                System.out.println("Tu as bien été déconnecté");
+                stage.close();
+                System.exit(0);
+
+            }
+
         }
         else {
-            System.out.println("Message envoyé : " + message);
-            messageInput.clear();
+            try {
+                System.out.println("Message envoyé : " + message);
+
+                client.sendMessage(clientSocket, message, sortie, pseudo);
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
+
+
+    public void ajouterMessage(String message) {
+        chatArea.appendText(message + "\n");
+    }
+
     @FXML
-    public  void onLogOutButtonClick(ActionEvent event) {
+    public  void onLogOutButtonClick(ActionEvent event) throws IOException {
 
             Alert alerte = new Alert(Alert.AlertType.CONFIRMATION);
             alerte.setTitle("Déconnexion");
@@ -64,10 +91,12 @@ public class ChatController {
                 Stage stage = (Stage) logOutButton.getScene().getWindow();
                 System.out.println("Tu as bien été déconnecté");
                 stage.close();
+
             }
             else {
                 System.out.println("Tu n'as pas été déconnecté");
             }
+
 
     }
 
@@ -80,9 +109,9 @@ public class ChatController {
         dialog.setContentText("Veuillez entrer votre nouveau pseudo :");
 
         // Traditional way to get the response value.
-        String nouveauPseudo = dialog.showAndWait().get();
-        System.out.println("Nouveau pseudo : " + nouveauPseudo);
 
+        pseudo = dialog.showAndWait().get();
+        System.out.println("Nouveau pseudo : " + pseudo);
 
 
     }
@@ -94,8 +123,6 @@ public class ChatController {
 
     public void setPseudo(String pseudo) {
         this.pseudo = pseudo;
-        welcomeText.setText("Bienvenue " + pseudo + " !");
-
     }
 
     public void setServeur(ServeurChat serveur) {
