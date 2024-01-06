@@ -14,7 +14,7 @@ import java.io.IOException;
 
 public class ConnexionController {
 
-
+    ClientChat client;
     private Stage stage;
 
     private Scene scene;
@@ -48,11 +48,16 @@ public class ConnexionController {
 
 
     public String getPseudo() {
-        return pseudoInput.getText();
+        if(pseudoInput.getText() == null)
+            return "null";
+        else
+            return pseudoInput.getText();
+
     }
 
 
     public void login(ActionEvent event) {
+
         pseudo = pseudoInput.getText();
 
 
@@ -73,6 +78,10 @@ public class ConnexionController {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void setClient(ClientChat client) {
+        this.client = client;
     }
 }
 
