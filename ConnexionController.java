@@ -14,7 +14,7 @@ import java.io.IOException;
 
 public class ConnexionController {
 
-    ClientChat client;
+
     private Stage stage;
 
     private Scene scene;
@@ -35,6 +35,7 @@ public class ConnexionController {
     private Main mainApp;
 
     private ServeurChat serveur;
+    private ClientChat client;
 
 
     public void setServeur(ServeurChat serveur) {
@@ -63,7 +64,8 @@ public class ConnexionController {
 
         System.out.println(pseudo);
 
-        ConnexionController connexionController = new ConnexionController();
+
+        ChatController chatController = new ChatController();
 
         if (pseudo.isEmpty()) {
             messageError.setText("Veuillez entrer un pseudo");
@@ -74,6 +76,17 @@ public class ConnexionController {
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 stage.setScene(scene);
                 stage.show();
+
+                chatController = fxmlLoader.getController();
+
+                mainApp.getClient().setClientController(chatController);
+                chatController.setClient(mainApp.getClient());
+                chatController.setMainApp(mainApp);
+                chatController.setPseudo(pseudo);
+                chatController.setServeur(serveur);
+
+
+                mainApp.getClient().launchThread();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -83,5 +96,7 @@ public class ConnexionController {
     public void setClient(ClientChat client) {
         this.client = client;
     }
+
+
 }
 
