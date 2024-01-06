@@ -42,6 +42,14 @@ public class ChatController {
         
 
         String message = messageInput.getText();
+        if (message.equals("bye")) {
+            System.out.println("Vous avez été déconnecté");
+            System.exit(0);
+        }
+        else {
+            System.out.println("Message envoyé : " + message);
+            messageInput.clear();
+        }
     }
     @FXML
     public  void onLogOutButtonClick(ActionEvent event) {
@@ -64,6 +72,15 @@ public class ChatController {
 
     @FXML
     protected void onChangeNameButtonClick() {
+
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Changer de pseudo");
+        dialog.setHeaderText("Changer de pseudo");
+        dialog.setContentText("Veuillez entrer votre nouveau pseudo :");
+
+        // Traditional way to get the response value.
+        String nouveauPseudo = dialog.showAndWait().get();
+        System.out.println("Nouveau pseudo : " + nouveauPseudo);
 
 
 
