@@ -34,7 +34,8 @@ public class ChatController {
     private Socket clientSocket;
     private PrintWriter sortie;
     public BufferedReader entrée;
-    private String pseudo = null;
+    String pseudo = null;
+    ClientChat client;
 
     @FXML
     protected void onEnvoyerButtonClick() {
@@ -100,6 +101,31 @@ public class ChatController {
     public void setServeur(ServeurChat serveur) {
         this.serveur = serveur;
 
+    }
+
+    public void setClientSocket(Socket clientSocket) {
+        this.clientSocket = clientSocket;
+    }
+
+    public void setSortie(PrintWriter sortie) {
+        this.sortie = sortie;
+    }
+
+    public void setEntrée(BufferedReader entrée) {
+        this.entrée = entrée;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    public void setClient(ClientChat client) {
+        this.client = client;
+    }
+
+
+    public String getPseudo() {
+        return pseudo;
     }
 }
 
