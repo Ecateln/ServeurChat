@@ -21,7 +21,7 @@ public class ClientChat extends Application {
         int port = 7777;
 
 
-
+        String pseudo = null;
         try {
 
             Parent root = FXMLLoader.load(getClass().getResource("connexion-view.fxml"));
@@ -30,6 +30,9 @@ public class ClientChat extends Application {
             stage.setTitle("ChatDuTurfu!");
             stage.setScene(scene);
             stage.show();
+
+            // ConnexionController connexionController = new ConnexionController();
+            // String pseudo = connexionController.getPseudo();
 
 
 
@@ -49,9 +52,8 @@ public class ClientChat extends Application {
 
 
                 // Étape 3: Envoi du pseudo au serveur
-                ConnexionController connexionController = new ConnexionController();
-                String pseudo = connexionController.getPseudo();
-                sortie.println(pseudo);
+
+                //sortie.println(pseudo);
 
 
 
@@ -63,7 +65,7 @@ public class ClientChat extends Application {
                     System.out.println(messageAccueil);
 
                     if (messageAccueil.equals("Le pseudo est déjà utilisé. Veuillez choisir un autre pseudo :")) {
-                        pseudo = connexionController.getPseudo();
+                       // pseudo = connexionController.getPseudo();
                         sortie.println(pseudo);
                     } else {
                         break;
