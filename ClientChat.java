@@ -16,10 +16,12 @@ import java.net.*;
 public class ClientChat {
 
     ChatController clientController;
+    PrintWriter sortie;
 
 
 
     public void sendMessage(Socket socket, String message, PrintWriter sortie, String pseudo) throws IOException {
+        System.out.println(pseudo + " : " + message);
         sortie.println(pseudo + " : " + message);
     }
 
@@ -38,7 +40,7 @@ public class ClientChat {
         Socket socket = new Socket("localhost", 7777);
 
         BufferedReader entree = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        PrintWriter sortie = new PrintWriter(socket.getOutputStream(), true);
+        sortie = new PrintWriter(socket.getOutputStream(), true);
 
 
         Thread lectureMessages = new Thread(() -> {
