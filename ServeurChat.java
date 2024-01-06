@@ -30,6 +30,7 @@ public class ServeurChat {
                 Socket clientSocket = serverSocket.accept();
                 System.out.println("Nouvelle connexion établie avec " + clientSocket.getInetAddress().getHostName());
 
+
                 // Création d'un thread pour gérer le client
                 ServerThread ServerThread = new ServerThread(this, clientSocket);
                 clients.add(ServerThread);
