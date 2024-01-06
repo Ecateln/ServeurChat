@@ -15,6 +15,8 @@ import java.net.*;
 
 public class ClientChat {
 
+    ChatController clientController;
+
 
 
     public void sendMessage(Socket socket, String message, PrintWriter sortie, String pseudo) throws IOException {
@@ -31,7 +33,14 @@ public class ClientChat {
         socket.close();
     }
 
-    public void launchThread(Socket socket, BufferedReader entree) throws IOException {
+    public void launchThread() throws IOException {
+
+        Socket socket = new Socket("localhost", 7777);
+
+        BufferedReader entree = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        PrintWriter sortie = new PrintWriter(socket.getOutputStream(), true);
+
+
         Thread lectureMessages = new Thread(() -> {
             try {
                 String message;
@@ -47,6 +56,15 @@ public class ClientChat {
             }
         });
         lectureMessages.start();
+    }
+
+
+    public void setClientController(ChatController controller) {
+        this.clientController = controller;
+    }
+
+    public void setPseudo(String pseudo) {
+        this.clientController.setPseudo(pseudo);
     }
 
 
