@@ -13,41 +13,71 @@ import java.net.Socket;
 import java.util.Objects;
 
 public class Main extends Application {
-    private ChatController chatController;
+
+    private Stage primaryStage;
+    private ClientChat client = new ClientChat();
 
     public static void main(String[] args) {
         launch();
     }
 
 
-
-    public void start(Stage stage) throws IOException{
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("connexion-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("ChatDuTurfu!");
-        stage.setScene(scene);
-        stage.show();
-
-        ClientChat clientChat = new ClientChat();
-
-        Socket socket = new Socket("localhost", 7777);
-        BufferedReader entree = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        PrintWriter sortie = new PrintWriter(socket.getOutputStream(), true);
+    @Override
+    public void start(Stage primaryStage) throws IOException{
+        this.primaryStage = primaryStage;
+        afficherPageConnexion();
 
 
+    }
 
-        try{
-            // contient le code qui instancie un client vers le serveur tout en le lian à l'interface graohique
+    public void afficherPageConnexion(){
 
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("connexion-view.fxml")); //charge le fichier page_connexion.fxml
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            primaryStage.setTitle("Connexion");
+            primaryStage.setScene(scene);
+            primaryStage.show();
 
+            // Controleur de cette page (ConnexionController)
+            ConnexionController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.setClient(client); //Partage de la référence du client
 
-
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void afficherPageChat(String pseudo){
+
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("chat-view.fxml")); //charge le fichier page_connexion.fxml
+                Parent root = loader.load();
+                Scene scene = new Scene(root);
+                primaryStage.setTitle("Chat en tant que " + pseudo );
+                primaryStage.setScene(scene);
+                primaryStage.show();
 
 
+                // Controleur de cette page (ConnexionController)
+                ChatController controller = loader.getController();
+
+                client.setClientController(controller); //Passage de la référence du controleur au client
+                client.setPseudo(pseudo);
+                controller.setPseudo(pseudo);
+                controller.setClient(client);
+                controller.setStage(primaryStage);
+
+
+                client.launchThread();
+
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
     }
 
 
