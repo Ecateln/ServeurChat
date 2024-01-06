@@ -1,11 +1,14 @@
+package chat.com.chat;
+
+import javax.swing.*;
 import java.io.*;
 import java.net.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class ServeurChat {
+    public Socket socket;
     private ServerSocket serverSocket;
-    private List<ServerThread> clients;
+    List<ServerThread> clients;
 
     public ServeurChat(int port) {
         try {
@@ -36,10 +39,10 @@ public class ServeurChat {
             }
         }
     }
-    
 
 
-    
+
+
 
     public void diffuserMessage(String message) {
         for (ServerThread client : clients) {
@@ -55,22 +58,22 @@ public class ServeurChat {
     }
 
     public void diffuserRejoindreSalon(ServerThread expéditeur) {
-        
+
         diffuserMessage(expéditeur.getPseudo() + " a rejoint le salon!");
-        
+
     }
-    
+
     public boolean pseudoUtilisé(String pseudo) throws IOException {
         for (ServerThread client : clients) {
             if (client.getPseudo() != null && client.getPseudo().equals(pseudo)){
-                return true; 
-            } 
-        
+                return true;
+            }
+
         }
-        return false; 
+        return false;
     }
 
-   
+
 
     public static void main(String[] args) {
         ServeurChat serveur = new ServeurChat(7777);
@@ -79,3 +82,4 @@ public class ServeurChat {
 
 
 }
+
