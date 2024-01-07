@@ -83,7 +83,7 @@ public class ConnexionController {
                 chatController.setClient(mainApp.getClient());
                 chatController.setMainApp(mainApp);
                 chatController.setPseudo(pseudo);
-                chatController.setServeur(serveur);
+
 
 
                 mainApp.getClient().launchThread();
