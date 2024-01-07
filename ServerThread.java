@@ -32,7 +32,7 @@ public class ServerThread extends Thread {
     public void run() {
         try {
             // Étape 1: Envoi du message d'accueil au client
-            sortie.println("Bienvenue sur le serveur de chat. Veuillez entrer votre pseudo :");
+           // sortie.println("Bienvenue sur le serveur de chat. Veuillez entrer votre pseudo :");
 
             // Étape 2: Réception du pseudo du client
             String enteredPseudo = entrée.readLine();
