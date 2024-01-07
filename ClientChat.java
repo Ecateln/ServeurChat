@@ -17,6 +17,9 @@ public class ClientChat {
 
     ChatController clientController;
     PrintWriter sortie;
+    BufferedReader entrée;
+
+    ServeurChat serveur;
 
 
 
@@ -25,10 +28,11 @@ public class ClientChat {
         sortie.println(pseudo + " : " + message);
     }
 
-    public void receiveMessage(Socket socket, BufferedReader entree) throws IOException {
+    public String receiveMessage(Socket socket, BufferedReader entree) throws IOException {
 
         String message = entree.readLine();
         System.out.println(message);
+        return message;
     }
 
     public void close(Socket socket) throws IOException {
