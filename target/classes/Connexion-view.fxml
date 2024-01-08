@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chat.com.chat.ConnexionController">
+   <TextField fx:id="pseudoInput" alignment="CENTER" layoutX="161.0" layoutY="158.0" prefHeight="68.0" prefWidth="277.0" promptText="Entrez votre pseudo" AnchorPane.bottomAnchor="174.0" AnchorPane.leftAnchor="161.0" AnchorPane.rightAnchor="161.39999999999998" AnchorPane.topAnchor="158.0">
+      <font>
+         <Font size="24.0" />
+      </font>
+   </TextField>
+   <Button fx:id="submitButton" defaultButton="true" layoutX="216.0" layoutY="255.0" mnemonicParsing="false" onAction="#login" prefHeight="53.0" prefWidth="166.0" text="Connexion" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="91.4" AnchorPane.leftAnchor="216.0" AnchorPane.rightAnchor="217.6" AnchorPane.topAnchor="255.0">
+      <font>
+         <Font size="24.0" />
+      </font>
+   </Button>
+</AnchorPane>
+
+
